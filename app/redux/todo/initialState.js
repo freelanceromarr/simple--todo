@@ -1,15 +1,21 @@
 const  initialState = [
     {
         id: "1",
-        name: "Lear next js",
+        name: "Learn next js framework",
         completed: false, 
-        color: ""
+        color: "red"
     }, 
     {
         id: "2",
-        name: "Lear basic js",
+        name: "Lear basic javascript in details",
         completed: true, 
-        color: ""
+        color: "green"
+    },
+    {
+        id: "3",
+        name: "Lear basic javascript in details",
+        completed: false, 
+        color: "green"
     }
 ]
 export default initialState;

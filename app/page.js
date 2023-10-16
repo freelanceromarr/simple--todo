@@ -1,4 +1,5 @@
 
+'use client'
 import Footer from './component/Footer'
 import Header from './component/Header'
 import Navbar from './component/Navbar'
@@ -13,7 +14,7 @@ export default function Home() {
               <div class="w-full max-w-3xl shadow-lg rounded-lg p-6 bg-white">  
                 <Header/>
                 <hr className="mt-4" />    
-                <TodoList/>
+                
                 <hr className="mt-4" />
                 <Footer/>
               </div>

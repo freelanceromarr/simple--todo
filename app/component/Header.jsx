@@ -1,8 +1,25 @@
+import { useDispatch, useSelector } from "react-redux";
+import TodoList from "./TodoList";
+import { useState } from "react";
+import { addTodo } from "../redux/todo/actions";
+
+
 
 const Header =()=>{
+const todos = useSelector(state=>state)
+const dispatch = useDispatch()
+const [input, setInput] = useState('')
+
+const addTodoHandler = (e)=>{
+    e.preventDefault(); 
+    dispatch(addTodo(input))
+    setInput("")
+}
+
     return (
         <div>
                     <form
+                        onSubmit={addTodoHandler}
                         className="flex items-center bg-gray-100 px-4 py-4 rounded-md"
                     >
                         <img
@@ -12,6 +29,8 @@ const Header =()=>{
                         />
                         <input
                             type="text"
+                            onChange={(e)=> setInput(e.target.value)}
+                            value={input}
                             placeholder="Type your todo"
                             className="w-full text-lg px-4 py-1 border-none outline-none bg-gray-100 text-gray-500"
                         />
@@ -32,6 +51,11 @@ const Header =()=>{
                         </li>
                         <li className="cursor-pointer">Clear completed</li>
                     </ul>
+                    {
+                        todos.map((todo)=>{
+                            return  <TodoList key={todo.id} todo={todo}/>
+                        })
+                    }
                 </div>
     )
 }

@@ -21,7 +21,11 @@ const todoreducer = (state= initialState, action)=>{
             ]
         case TODOSTATUS :
             return state.map( (todo) => {
-               return  todo.id == action.payload.todoId? {...todo, completed: !completed} : todo
+                if(todo.id !==action.payload) {
+                    return todo
+                }
+                
+               return todo.completed ? {...todo, completed: false} : {...todo, completed: true}
             })
         case SETPRIORITY:
                 return state.map( (todo) =>{
