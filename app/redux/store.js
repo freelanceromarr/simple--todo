@@ -1,10 +1,11 @@
 import {applyMiddleware, createStore} from 'redux'
-import todoreducer from './reducer'
 import loggger from 'redux-logger'
 import {composeWithDevTools} from 'redux-devtools-extension'
+import rootReducer from "./rooteReducer";
+
 const store = createStore(
-    todoreducer, 
+    rootReducer, 
     composeWithDevTools(applyMiddleware(loggger))
     )
 
-    export default store;
+export default store;

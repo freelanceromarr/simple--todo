@@ -35,8 +35,7 @@ export const priorityToggle = (todoId, color) =>{
 
 export const completeAllTodo = () =>{
     return {
-        type: COMPLETEALLTODO
-        
+        type: COMPLETEALLTODO 
     }
 }
 

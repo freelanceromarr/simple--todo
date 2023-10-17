@@ -1,10 +1,17 @@
 import CancelImage from '@/public/images/cancel.png'
-import { useDispatch, useSelector } from 'react-redux';
-import { todoStatus } from '../redux/todo/actions';
+import { useDispatch } from 'react-redux';
+import { deleteTodo, priorityToggle, todoStatus } from '../redux/todo/actions';
 const TodoList = ({todo})=>{
     const dispatch = useDispatch()
     const toggleHanlder= (todoId)=>{
         dispatch(todoStatus(todoId))
+    }
+
+    const todoPriorityHandler = (todId, color)=>{
+        dispatch(priorityToggle(todId, color))
+    }
+    const todoDeleteHandler = (todId)=>{
+        dispatch(deleteTodo(todId))
     }
     return (
     
@@ -34,18 +41,22 @@ const TodoList = ({todo})=>{
                                 </div>
 
                                 <div
+                                    onClick={()=>todoPriorityHandler(todo.id, 'green')}
                                     className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-green-500 hover:bg-green-500 ${todo.color=="green" && "bg-green-500"}`}
                                 ></div>
 
                                 <div
+                                    onClick={()=>todoPriorityHandler(todo.id, 'yellow')}
                                     className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-yellow-500 hover:bg-yellow-500 ${todo.color=="yellow" && "bg-yellow-500"}`}
                                 ></div>
 
                                 <div
+                                    onClick={()=>todoPriorityHandler(todo.id, 'red')}
                                     className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-red-500 hover:bg-red-500 ${todo.color=="red" && "bg-red-500"}`}
                                 ></div>
 
                                 <img
+                                    onClick={()=>todoDeleteHandler(todo.id)}
                                     src="/images/cancel.png"  
                                     className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer"
                                     alt="Cancel"

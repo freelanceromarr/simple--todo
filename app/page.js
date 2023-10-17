@@ -5,7 +5,7 @@ import Header from './component/Header'
 import Navbar from './component/Navbar'
 import TodoList from './component/TodoList'
 import { Provider } from 'react-redux';
-import store from './redux/todo/store';
+import store from './redux/store';
 export default function Home() {
   return (
     <Provider store={store}>

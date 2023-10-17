@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import TodoList from "./TodoList";
 import { useState } from "react";
-import { addTodo } from "../redux/todo/actions";
+import { addTodo, clearAllTodo, completeAllTodo } from "../redux/todo/actions";
 
 
 
 const Header =()=>{
-const todos = useSelector(state=>state)
+const todos = useSelector(state=>state.todos)
 const dispatch = useDispatch()
 const [input, setInput] = useState('')
 
@@ -14,6 +14,14 @@ const addTodoHandler = (e)=>{
     e.preventDefault(); 
     dispatch(addTodo(input))
     setInput("")
+}
+
+const completeAll = ()=>{
+    dispatch(completeAllTodo())
+}
+
+const clearAll = ()=>{
+    dispatch(clearAllTodo())
 }
 
     return (
@@ -41,7 +49,9 @@ const addTodoHandler = (e)=>{
                     </form>
 
                     <ul className="flex justify-between my-4 text-xs text-gray-500">
-                        <li className="flex space-x-1 cursor-pointer">
+                        <li 
+                            onClick={completeAll}
+                            className="flex space-x-1 cursor-pointer">
                             <img
                                 className="w-4 h-4"
                                 src="/images/double-tick.png"
@@ -49,7 +59,7 @@ const addTodoHandler = (e)=>{
                             />
                             <span>Complete All Tasks</span>
                         </li>
-                        <li className="cursor-pointer">Clear completed</li>
+                        <li onClick={clearAll} className="cursor-pointer">Clear completed</li>
                     </ul>
                     {
                         todos.map((todo)=>{

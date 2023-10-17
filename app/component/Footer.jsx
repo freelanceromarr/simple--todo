@@ -1,24 +1,32 @@
 import { useSelector } from "react-redux";
-
-const Footer =()=>{
-    const todos = useSelector(state=>state);
-    function IncompleteTasksCount(todos){
-        const tasks = todos && todos.filter(todo=>!todo.completed)
-        switch (tasks.length) {
-            case 0:
-                return 'No task '
-            case 1:
-                return tasks.length + ` task`
-            default:
-                return tasks.length + ' tasks';
-        }
+function IncompleteTasksCount(todos){
+    const tasks = todos && todos.filter(todo=>!todo.completed)
+    switch (tasks.length) {
+        case 0:
+            return 'No task '
+        case 1:
+            return tasks.length + ` task`
+        default:
+            return tasks.length + ' tasks';
     }
+}
+const Footer =()=>{
+    const todos = useSelector(state=>state.todos);
+    const filters = useSelector(state=>state.filters);
+    console.log(filters);
+   
+
+
     return (
     
         <div className="mt-4 flex justify-between text-xs text-gray-500">
         <p> {IncompleteTasksCount(todos)} left</p>
         <ul className="flex space-x-1 items-center text-xs">
-            <li className="cursor-pointer font-bold">All</li>
+            <li 
+                // onClick={statusHandler()}
+                className="cursor-pointer font-bold"
+            >All
+            </li>
             <li>|</li>
             <li className="cursor-pointer">Incomplete</li>
             <li>|</li>
