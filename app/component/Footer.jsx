@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { filterByColor, filterByStatus } from "../redux/filter/actoins";
+
+// incompelte todo count
 function IncompleteTasksCount(todos){
     const tasks = todos && todos.filter(todo=>!todo.completed)
     switch (tasks.length) {
@@ -11,7 +13,7 @@ function IncompleteTasksCount(todos){
             return tasks.length + ' tasks';
     }
 }
-const Footer =()=>{
+    const Footer =()=>{
     const todos = useSelector(state=>state.todos);
     const filters = useSelector(state=>state.filters);
     const dispatch = useDispatch()
