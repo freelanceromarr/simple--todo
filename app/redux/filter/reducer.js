@@ -19,10 +19,19 @@ const filterReducer = (state= initialState, action)=>{
             }
         case COLORFILTER:
                const {changeType, color} = action.payload;
+               if (changeType=== 'add') {
                 return {
                     ...state,
                     colorstatus: {...state.colorstatus, type: changeType, colors: [...state.colorstatus.colors, color]}
                 }
+               }else if (changeType=== 'remove'){
+                
+                return {
+                    ...state,
+                    colorstatus: {...state.colorstatus, type: changeType, colors: state.colorstatus.colors.filter(ele=>ele !== color)}
+                }
+               } else{return state}
+               
         
         default:
             return state;

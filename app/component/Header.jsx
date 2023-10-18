@@ -7,6 +7,7 @@ import { addTodo, clearAllTodo, completeAllTodo } from "../redux/todo/actions";
 
 const Header =()=>{
 const todos = useSelector(state=>state.todos)
+const filters = useSelector(state=>state.filters)
 const dispatch = useDispatch()
 const [input, setInput] = useState('')
 
@@ -62,7 +63,23 @@ const clearAll = ()=>{
                         <li onClick={clearAll} className="cursor-pointer">Clear completed</li>
                     </ul>
                     {
-                        todos.map((todo)=>{
+                        
+                        todos.filter(todo=>{
+                            switch (filters.status) {
+                                case 'complete':
+                                    return todo.completed
+                                case 'incomplete':
+                                    return !todo.completed
+                                default:
+                                    return todo;
+                            }
+                        }).filter(todo => {
+                            const {colors} = filters.colorstatus;
+                            if (colors.length > 0) {
+                                return colors.includes(todo?.color)
+                            }else return true
+                        })
+                        .map((todo)=>{
                             return  <TodoList key={todo.id} todo={todo}/>
                         })
                     }
