@@ -1,4 +1,4 @@
-import {  TODODELETED, SETPRIORITY, CLEARALLTODO, COMPLETEALLTODO, TODOSTATUS, TODOADDED } from "./actionTypes";
+import {  TODODELETED, SETPRIORITY, CLEARALLTODO, COMPLETEALLTODO, TODOSTATUS, TODOADDED, TODOLOADED } from "./actionTypes";
 import initialState from "./initialState";
 
 const maxId = function (todos) {
@@ -17,11 +17,13 @@ const todoreducer = (state= initialState, action)=>{
         case TODOADDED:
             return [
                 ...state,
-                {id: maxId(state), name: action.payload, completed: false}
+               action.payload
             ]
+        case TODOLOADED:
+            return action.payload
         case TODOSTATUS :
             return state.map( (todo) => {
-                if(todo.id !==action.payload) {
+                if(todo._id !==action.payload) {
                     return todo
                 }
                 
@@ -30,7 +32,7 @@ const todoreducer = (state= initialState, action)=>{
         case SETPRIORITY:
                 return state.map( (todo) =>{
                     const {todoId, color} = action.payload;
-                    if (todo.id == todoId) {
+                    if (todo._id == todoId) {
                         switch (color) {
                             case "green":
                                 return {...todo, color:color}
@@ -44,7 +46,7 @@ const todoreducer = (state= initialState, action)=>{
                     }return todo;
                 })
         case TODODELETED:
-            return state.filter((todo)=> todo.id !== action.payload)
+            return state.filter((todo)=> todo._id !== action.payload)
         
         case COMPLETEALLTODO :
                 return state.map((todo)=> {

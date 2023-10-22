@@ -1,29 +1,36 @@
 import { useDispatch, useSelector } from "react-redux";
 import TodoList from "./TodoList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addTodo, clearAllTodo, completeAllTodo } from "../redux/todo/actions";
+import todoLoaded from "../redux/thunk/todoLoaded";
+import addTodoThunk from "../redux/thunk/addTodo";
 
 
 
 const Header =()=>{
-const todos = useSelector(state=>state.todos)
-const filters = useSelector(state=>state.filters)
-const dispatch = useDispatch()
-const [input, setInput] = useState('')
+    const todos = useSelector(state=>state.todos)
+    const filters = useSelector(state=>state.filters)
+    const dispatch = useDispatch()
+    const [input, setInput] = useState('')
 
-const addTodoHandler = (e)=>{
-    e.preventDefault(); 
-    dispatch(addTodo(input))
-    setInput("")
-}
+    console.log(todos);
+    useEffect(()=>{
+        dispatch(todoLoaded)
+    },[dispatch])
 
-const completeAll = ()=>{
-    dispatch(completeAllTodo())
-}
+    const addTodoHandler = (e)=>{
+        e.preventDefault(); 
+        dispatch(addTodoThunk(input))
+        setInput("")
+    }
 
-const clearAll = ()=>{
-    dispatch(clearAllTodo())
-}
+    const completeAll = ()=>{
+        dispatch(completeAllTodo())
+    }
+
+    const clearAll = ()=>{
+        dispatch(clearAllTodo())
+    }
 
     return (
         <div>
@@ -80,7 +87,7 @@ const clearAll = ()=>{
                             }else return true
                         })
                         .map((todo)=>{
-                            return  <TodoList key={todo.id} todo={todo}/>
+                            return  <TodoList key={todo._id} todo={todo}/>
                         })
                     }
                 </div>

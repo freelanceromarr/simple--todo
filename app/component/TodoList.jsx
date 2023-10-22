@@ -1,17 +1,20 @@
-import CancelImage from '@/public/images/cancel.png'
+
 import { useDispatch } from 'react-redux';
-import { deleteTodo, priorityToggle, todoStatus } from '../redux/todo/actions';
+import updateTodo from '../redux/thunk/updateTodo';
+import updateColor from '../redux/thunk/updateColor';
+import deleleTodothunk from '../redux/thunk/deleteTodo';
 const TodoList = ({todo})=>{
     const dispatch = useDispatch()
-    const toggleHanlder= (todoId)=>{
-        dispatch(todoStatus(todoId))
+
+    const toggleHanlder= (todoId, completed)=>{
+        dispatch( updateTodo(todoId, completed))
     }
 
     const todoPriorityHandler = (todId, color)=>{
-        dispatch(priorityToggle(todId, color))
+        dispatch(updateColor(todId, color))
     }
-    const todoDeleteHandler = (todId)=>{
-        dispatch(deleteTodo(todId))
+    const todoDeleteHandler = (todoId)=>{
+        dispatch(deleleTodothunk(todoId))
     }
     return (
     
@@ -21,10 +24,10 @@ const TodoList = ({todo})=>{
                                 className="flex justify-start items-center p-2 hover:bg-gray-100 hover:transition-all space-x-4 border-b border-gray-400/20 last:border-0"
                             >
                                 <div
-                                    className="rounded-full bg-white border-2 border-gray-400 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 border-green-500 focus-within:border-green-500"
+                                    className=" relative rounded-full bg-white border-2 border-gray-400 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 border-green-500 focus-within:border-green-500"
                                 >
                                     <input
-                                        onChange={()=> toggleHanlder(todo.id)}
+                                        onChange={()=> toggleHanlder(todo._id, todo.completed)}
                                         type="checkbox"
                                         className="opacity-0 absolute rounded-full"
                                     />
@@ -41,22 +44,22 @@ const TodoList = ({todo})=>{
                                 </div>
 
                                 <div
-                                    onClick={()=>todoPriorityHandler(todo.id, 'green')}
+                                    onClick={()=>todoPriorityHandler(todo._id, 'green')}
                                     className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-green-500 hover:bg-green-500 ${todo.color=="green" && "bg-green-500"}`}
                                 ></div>
 
                                 <div
-                                    onClick={()=>todoPriorityHandler(todo.id, 'yellow')}
+                                    onClick={()=>todoPriorityHandler(todo._id, 'yellow')}
                                     className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-yellow-500 hover:bg-yellow-500 ${todo.color=="yellow" && "bg-yellow-500"}`}
                                 ></div>
 
                                 <div
-                                    onClick={()=>todoPriorityHandler(todo.id, 'red')}
+                                    onClick={()=>todoPriorityHandler(todo._id, 'red')}
                                     className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-red-500 hover:bg-red-500 ${todo.color=="red" && "bg-red-500"}`}
                                 ></div>
 
                                 <img
-                                    onClick={()=>todoDeleteHandler(todo.id)}
+                                    onClick={()=>todoDeleteHandler(todo._id)}
                                     src="/images/cancel.png"  
                                     className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer"
                                     alt="Cancel"

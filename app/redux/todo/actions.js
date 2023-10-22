@@ -1,7 +1,13 @@
-import { TODODELETED, SETPRIORITY, CLEARALLTODO, COMPLETEALLTODO, TODOSTATUS, TODOADDED } from "./actionTypes";
+import { TODOLOADED, TODODELETED, SETPRIORITY, CLEARALLTODO, COMPLETEALLTODO, TODOSTATUS, TODOADDED } from "./actionTypes";
 
 
 
+export const loadTodo = (todos) =>{
+    return {
+        type: TODOLOADED,
+        payload: todos
+    }
+}
 export const addTodo = (todos) =>{
     return {
         type: TODOADDED,
